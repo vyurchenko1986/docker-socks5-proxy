@@ -14,8 +14,8 @@ ENV SQUID=/etc/squid
 
 VOLUME ["/etc/squid"]
 
-# Internally uses port 3128/tcp
-EXPOSE 3128/tcp
+# Internally uses port 1080/tcp
+EXPOSE 1080/tcp
 
 CMD ["squid_run"]
 
