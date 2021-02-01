@@ -4,23 +4,36 @@ MAINTAINER Valery Yurchenko <vyurchenko1986@gmail.com>
 ENV TZ=Europe/Kiev
 
 RUN set -x \
-    # Runtime dependencies:
     apk update && apk upgrade && \
-    apk add --no-cache squid=4.13-r0 apache2-utils && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
     apk add --update tzdata && \
-    rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
 
-# Needed by scripts
-ENV SQUID=/etc/socks5
+    && apk add --no-cache \
+            linux-pam \
+    && apk add --no-cache -t .build-deps \
+        build-base \
+        curl \
+        linux-pam-dev \
 
-VOLUME ["/etc/socks5"]
+        && cd /tmp \
+         && curl -L https://www.inet.no/dante/files/dante-1.4.2.tar.gz | tar xz \
+         && cd dante-* \
+         && ac_cv_func_sched_setscheduler=no ./configure \
+         && make install \
+         && cd / \
 
-# Internally uses port 1080/tcp
-EXPOSE 1080/tcp
+         && adduser -S -D -u 8062 -H sockd \
 
-ADD ./config /etc/socks5
-ADD ./bin /usr/local/bin
-RUN chmod a+x /usr/local/bin/*
+         && curl -Lo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.1.3/dumb-init_1.1.3_amd64 \
+         && chmod +x /usr/local/bin/dumb-init \
 
-CMD ["socks5_run"]
+         && rm -rf /tmp/* \
+         && apk del --purge .build-deps
+
+        # Default configuration
+        ADD ./config /etc/
+
+        EXPOSE 1080
+
+        ENTRYPOINT ["dumb-init"]
+        CMD ["sockd"]
