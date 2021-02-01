@@ -27,7 +27,7 @@ RUN set -x \
     && apk del --purge .build-deps \
     && rm -rf /tmp/* \
 # Default configuration
-ADD ./config /etc/
+COPY ./config /etc/
 
 EXPOSE 1080
 
