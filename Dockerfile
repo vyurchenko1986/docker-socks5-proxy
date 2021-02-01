@@ -24,7 +24,7 @@ RUN set -x \
 
          && adduser -S -D -u 8062 -H sockd \
 
-         && curl -Lo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.1.3/dumb-init_1.1.3_amd64 \
+         && curl -Lo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.4/dumb-init_1.2.4_x86_64 \
          && chmod +x /usr/local/bin/dumb-init \
 
          && rm -rf /tmp/* \
