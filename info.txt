@@ -1,5 +1,7 @@
 dante
+
 https://www.inet.no/dante/
 https://www.inet.no/dante/files/dante-1.4.2.tar.gz
 https://github.com/Yelp/dumb-init
 https://github.com/wernight/docker-dante
+https://hub.docker.com/r/wernight/dante
