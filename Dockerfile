@@ -10,15 +10,15 @@ RUN apk update && apk upgrade && \
     rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
 
 # Needed by scripts
-ENV SQUID=/etc/squid
+ENV SQUID=/etc/socks5
 
-VOLUME ["/etc/squid"]
+VOLUME ["/etc/socks5"]
 
 # Internally uses port 1080/tcp
 EXPOSE 1080/tcp
 
-CMD ["squid_run"]
-
-ADD ./config /etc/squid
+ADD ./config /etc/socks5
 ADD ./bin /usr/local/bin
 RUN chmod a+x /usr/local/bin/*
+
+CMD ["socks5_run"]
