@@ -27,7 +27,7 @@ RUN set -x \
     && apk del --purge .build-deps \
     && rm -rf /tmp/* \
 # Default configuration
-COPY ./config /etc/
+COPY sockd.conf /etc/
 
 EXPOSE 1080
 
