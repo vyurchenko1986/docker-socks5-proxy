@@ -22,7 +22,7 @@ RUN set -x \
     && ac_cv_func_sched_setscheduler=no ./configure \
     && make install \
     && cd / \
-    && rm -rf $TMPDIR
+    && rm -rf $TMPDIR \
     && adduser -S -D -u 8062 -H sockd \
     && curl -Lo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.4/dumb-init_1.2.4_x86_64 \
     && chmod +x /usr/local/bin/dumb-init \
