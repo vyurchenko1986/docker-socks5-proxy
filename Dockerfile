@@ -4,13 +4,17 @@ LABEL maintainer="Valery Yurchenko <vyurchenko1986@gmail.com>"
 LABEL company="My Awesome Company"
 LABEL name="SOCKS v5 server"
 
-ENV TZ=Europe/Kiev
+ARG tz=Europe/Kiev
+ARG service_port=1080
+
+ENV SERVICE_PORT=${SERVICE_PORT:-$service_port}
+ENV TZ=${TZ:-$tz}
 
 RUN set -x \
     && apk update \
     && apk upgrade \
-    && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
-    && echo $TZ > /etc/timezone \
+    && ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime \
+    && echo ${TZ} > /etc/timezone \
     && apk add --update tzdata \
     && apk add --no-cache \
             linux-pam \
@@ -37,7 +41,7 @@ RUN set -x \
 # Default configuration
 #COPY sockd.conf /etc/
 
-EXPOSE 1080
+EXPOSE ${SERVICE_PORT}
 
 ENTRYPOINT ["dumb-init"]
 CMD ["sockd"]
