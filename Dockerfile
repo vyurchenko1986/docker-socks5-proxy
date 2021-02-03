@@ -1,5 +1,8 @@
 FROM  alpine:latest
-LABEL Valery Yurchenko <vyurchenko1986@gmail.com>
+
+LABEL maintainer="Valery Yurchenko <vyurchenko1986@gmail.com>"
+LABEL company="My Awesome Company"
+LABEL name="SOCKS v5 server"
 
 ENV TZ=Europe/Kiev
 
