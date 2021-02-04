@@ -4,11 +4,17 @@ LABEL maintainer="Valery Yurchenko <vyurchenko1986@gmail.com>"
 LABEL company="My Home Company"
 LABEL name="SOCKS v5 Server"
 
-ARG tz=Europe/Kiev
-ARG service_port=1080
+ARG tz="Europe/Kiev"
+ARG service_port="1080"
+
+ARG dante_release="https://www.inet.no/dante/files/dante-1.4.2.tar.gz"
+ARG dumb_init_release="https://github.com/Yelp/dumb-init/releases/download/v1.2.4/dumb-init_1.2.4_x86_64"
 
 ENV SERVICE_PORT=${SERVICE_PORT:-$service_port}
 ENV TZ=${TZ:-$tz}
+
+ENV DANTE_RELEASE=${DANTE_RELEASE:-$dante_release}
+ENV DUMB_INIT_RELEASE=${DUMB_INIT_RELEASE:-$dumb_init_release}
 
 RUN set -x \
     && apk update \
@@ -24,14 +30,14 @@ RUN set -x \
         linux-pam-dev \
     && TMPDIR="$(mktemp -d)" \
     && cd $TMPDIR \
-    && curl -L https://www.inet.no/dante/files/dante-1.4.2.tar.gz | tar xz \
+    && curl -L ${DANTE_RELEASE} | tar xz \
     && cd dante-* \
     && ac_cv_func_sched_setscheduler=no ./configure \
     && make install \
     && cd / \
     && rm -rf $TMPDIR \
     && adduser -S -D -u 8062 -H sockd \
-    && curl -Lo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.4/dumb-init_1.2.4_x86_64 \
+    && curl -Lo /usr/local/bin/dumb-init ${DUMB_INIT_RELEASE} \
     && chmod +x /usr/local/bin/dumb-init \
     && apk del --purge .build-deps \
     && rm -rf /tmp/* \
