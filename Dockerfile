@@ -48,7 +48,7 @@ RUN set -x \
     && rm -rf /var/cache/distfiles/*
 
 # Default configuration
-COPY sockd.conf /etc/
+#COPY sockd.conf /etc/
 
 EXPOSE ${SERVICE_PORT}
 
