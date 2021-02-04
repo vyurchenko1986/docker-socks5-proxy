@@ -4,8 +4,8 @@ LABEL maintainer="Valery Yurchenko <vyurchenko1986@gmail.com>"
 LABEL company="My Home Company"
 LABEL name="SOCKS v5 Server"
 
-ARG tz=Europe/Kiev
-ARG service_port=1080
+ARG tz="Europe/Kiev"
+ARG service_port="1080"
 
 # https://www.inet.no/dante/download.html
 ARG dante_release="https://www.inet.no/dante/files/dante-1.4.2.tar.gz"
