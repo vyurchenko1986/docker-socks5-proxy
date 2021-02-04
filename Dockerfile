@@ -38,6 +38,7 @@ RUN set -x \
     && rm -rf /var/tmp/* \
     && rm -rf /var/cache/apk/* \
     && rm -rf /var/cache/distfiles/*
+
 # Default configuration
 COPY sockd.conf /etc/
 
