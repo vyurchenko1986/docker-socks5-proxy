@@ -7,7 +7,9 @@ LABEL name="SOCKS v5 Server"
 ARG tz="Europe/Kiev"
 ARG service_port="1080"
 
+# https://www.inet.no/dante/download.html
 ARG dante_release="https://www.inet.no/dante/files/dante-1.4.2.tar.gz"
+# https://github.com/Yelp/dumb-init/releases
 ARG dumb_init_release="https://github.com/Yelp/dumb-init/releases/download/v1.2.4/dumb-init_1.2.4_x86_64"
 
 ENV SERVICE_PORT=${SERVICE_PORT:-$service_port}
