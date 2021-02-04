@@ -1,7 +1,7 @@
 FROM  alpine:latest
 
 LABEL maintainer="Valery Yurchenko <vyurchenko1986@gmail.com>"
-LABEL company="My Awesome Company"
+LABEL company="My Home Company"
 LABEL name="SOCKS v5 Server"
 
 ARG tz=Europe/Kiev
