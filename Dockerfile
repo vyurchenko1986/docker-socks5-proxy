@@ -41,6 +41,7 @@ RUN set -x \
     && adduser -S -D -u 8062 -H sockd \
     && curl -Lo /usr/local/bin/dumb-init ${DUMB_INIT_RELEASE} \
     && chmod +x /usr/local/bin/dumb-init \
+    && cp /etc/sockd.conf /etc/sockd.conf.old \
     && apk del --purge .build-deps \
     && rm -rf /tmp/* \
     && rm -rf /var/tmp/* \
@@ -48,7 +49,7 @@ RUN set -x \
     && rm -rf /var/cache/distfiles/*
 
 # Default configuration
-#COPY sockd.conf /etc/
+COPY sockd.conf /etc/
 
 EXPOSE ${SERVICE_PORT}
 
